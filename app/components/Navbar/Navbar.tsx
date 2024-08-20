@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import SearchFilter from "./SearchFilter";
+import UserNav from "./UserNav";
+import AddPropertyButton from "./AddPropertyButton";
 
 type Props = {};
 
@@ -18,7 +20,10 @@ const Navbar = (props: Props) => {
             <SearchFilter/>
           </div>
 
-          <div className="flex items-center space-x-6">add property</div>
+          <div className="flex items-center space-x-6">
+            <AddPropertyButton/>
+            <UserNav/>
+          </div>
         </div>
       </div>
     </nav>

@@ -27,7 +27,7 @@ const SearchFilter = (props: Props) => {
         </div>
 
         <div className='p-2' >
-            <div className='p-4 bg-airbnb rounded-full text-white hover:bg-airbnb-dark cursor-pointer' >
+            <div className='p-2 lg:p-4 bg-airbnb rounded-full text-white hover:bg-airbnb-dark cursor-pointer' >
                 <IoSearch/>
             </div>
         </div>
