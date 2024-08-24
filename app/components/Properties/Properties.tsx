@@ -1,15 +1,17 @@
-import React from 'react'
-import PropertyItem from './PropertyItem'
+import React from "react";
+import PropertyItem from "./PropertyItem";
 
-type Props = {}
+type Props = {className?: string};
 
-const Properties = (props: Props) => {
+const Properties: React.FC<Props> = ({ className }) => {
   return (
-    <>
-        <PropertyItem/>
-        <PropertyItem/>
-    </>
-  )
-}
+    <div className={className}>
+      <PropertyItem />
+      <PropertyItem />
+      <PropertyItem />
+      <PropertyItem />
+    </div>
+  );
+};
 
-export default Properties
+export default Properties;

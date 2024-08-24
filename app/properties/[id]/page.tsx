@@ -33,7 +33,7 @@ const PropertyDetailPage = (props: Props) => {
             </p>
         </div>
 
-        <div>
+        <div className="col-span-2">
             <ReservationSidebar/>
         </div>
     </div>
