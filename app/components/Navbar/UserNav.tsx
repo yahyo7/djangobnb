@@ -9,7 +9,9 @@ const UserNav = () => {
 
   return (
     <div className="p-2 relative inline-block border rounded-full">
-        <button className="flex items-center">
+        <button 
+        onClick={()=>setIsOpen(!isOpen)}
+        className="flex items-center">
         <IoMdMenu className="h-9 w-9" />
         <CiUser className="h-8 w-8" />
 
