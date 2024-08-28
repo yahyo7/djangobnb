@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
 import Modal from "./components/modals/Modal";
+import LoginModal from "./components/modals/LoginModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,9 +24,7 @@ export default function RootLayout({
         <Navbar />
         <div className="pt-32">{children}</div>
 
-        <Modal label="Modal title"
-        content={test}
-        />
+      <LoginModal/>
       </body>
     </html>
   );
