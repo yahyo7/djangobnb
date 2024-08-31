@@ -1,13 +1,13 @@
 "use client";
 
-import useLoginModal from "@/app/hooks/useLoginModal";
 import Modal from "./Modal";
 import CustomButton from "../forms/CustomButton";
+import useSignupModal from "@/app/hooks/useSignupModal";
 
 type Props = {};
 
-const LoginModal = (props: Props) => {
-  const loginModal = useLoginModal();
+const SignupModal = (props: Props) => {
+  const signupModal = useSignupModal();
 
   const content = (
     <>
@@ -15,6 +15,7 @@ const LoginModal = (props: Props) => {
       <form action="submit" className="space-y-4">
         <input placeholder="Email" type="email" className="w-full h-[54px] px-4 border border-gray-100 rounded-xl" />
         <input placeholder="Password" type="password" className="w-full h-[54px] px-4 border border-gray-100 rounded-xl" />
+        <input placeholder="Retype Password" type="password" className="w-full h-[54px] px-4 border border-gray-100 rounded-xl" />
 
         <div className="p-5 bg-airbnb text-white rounded-xl opacity-70" >error</div>
 
@@ -23,13 +24,13 @@ const LoginModal = (props: Props) => {
     </>
   );
   return (
-    <Modal
-      isOpen={loginModal.isOpen}
-      close={loginModal.close}
-      label="Log In"
+    <Modal 
+      isOpen={signupModal.isOpen}
+      close={signupModal.close}
+      label="Sign Up"
       content={content}
     />
   );
 };
 
-export default LoginModal;
+export default SignupModal;
