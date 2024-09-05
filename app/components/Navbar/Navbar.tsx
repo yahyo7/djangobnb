@@ -14,7 +14,7 @@ const Navbar = (props: Props) => {
         <div className="flex justify-between items-center">
           <Link href="/">
             {" "}
-            <Image src="/logo.png" alt="Logo" width={170} height={35} />
+            <Image priority src="/logo.png" alt="Logo" width={170} height={35} />
           </Link>
           <div className="flex space-x-6">
             <SearchFilter/>

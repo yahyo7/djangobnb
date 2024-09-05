@@ -3,6 +3,7 @@ import React from "react";
 import PropertyItem from "./PropertyItem";
 
 import { useEffect, useState } from "react";
+import apiService from "@/app/services/apiService";
 
 type Props = { className?: string };
 export type PropertyType = {
@@ -16,19 +17,8 @@ const Properties: React.FC<Props> = ({ className }) => {
   const [properties, setProperties] = useState<PropertyType[]>([]);
 
   const getProperties = async () => {
-    const url = "http://localhost:8000/api/properties/";
-
-    await fetch(url, {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-        setProperties(json.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    const tmpProperties = await apiService.get('/api/properties/')
+    setProperties(tmpProperties.data);
   };
 
   useEffect(() => {

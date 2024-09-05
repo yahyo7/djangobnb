@@ -6,13 +6,12 @@ interface PropertyProps {
   property: PropertyType;
 }
 
-const PropertyItem: React.FC<PropertyProps> = ({
-  property
-}) => {
+const PropertyItem: React.FC<PropertyProps> = ({ property }) => {
   return (
     <div className="cursor-pointer">
       <div className="relative overflow-hidden aspect-square rounded-xl">
         <Image
+          priority
           alt="beach"
           fill
           src={property.image_url}
