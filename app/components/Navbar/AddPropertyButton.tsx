@@ -1,11 +1,34 @@
-import React from 'react'
+"use client"
 
-type Props = {}
+import useAddPropertyModal from "@/app/hooks/useAddPropertyModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
+import React from "react";
 
-const AddPropertyButton = (props: Props) => {
-  return (
-    <div className='p-2 text-sm font-semibold rounded-full hover:bg-gray-200'>add property</div>
-  )
+interface AddPropertyButtonProps {
+  userId?: string | null;
 }
 
-export default AddPropertyButton
+const AddPropertyButton: React.FC<AddPropertyButtonProps> = ({userId}) => {
+  const addPropertyModal = useAddPropertyModal();
+
+  const loginModal = useLoginModal();
+
+  const airbnbYourHome = () => {
+    if (userId) {
+      addPropertyModal.open();
+    } else {
+      loginModal.open();
+    }
+  };
+
+  return (
+    <div
+      onClick={airbnbYourHome}
+      className="p-3 mx-2 text-sm font-semibold rounded-full hover:bg-gray-200 cursor-pointer"
+    >
+      Djangobnb your home
+    </div>
+  );
+};
+
+export default AddPropertyButton;
