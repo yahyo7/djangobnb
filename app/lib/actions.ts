@@ -33,3 +33,8 @@ export async function getUserId( ) {
   const userId = cookies().get("session_userid")?.value
   return userId
 }
+
+export async function getAccessToken( ) {
+  const accessToken = cookies().get("session_access_token")?.value
+  return accessToken
+}
