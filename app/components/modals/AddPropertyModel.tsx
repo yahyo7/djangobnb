@@ -69,7 +69,7 @@ function AddPropertyModel({}: Props) {
 
             addPropertyModal.close();
         } else {
-            console.log('Error');
+            console.log(errors);
 
             const tmpErrors: string[] = Object.values(response).map((error: any) => {
                 return error;
@@ -213,6 +213,17 @@ function AddPropertyModel({}: Props) {
               </div>
             )}
           </div>
+
+          {errors.map((error, index) => {
+            return (
+                <div
+                key={index}
+                className="p-5 bg-airbnb text-white rounded-xl opacity-70"
+                >
+                    {error}
+                </div>
+            )
+          })}
 
           <div className="flex gap-4">
             <CustomButton

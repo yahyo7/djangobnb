@@ -24,7 +24,7 @@ const apiService = {
         })
     },
 
-    post: async function(url: string, data: any): Promise<any> {
+    post: async function(url: string, data: FormData): Promise<any> {
 
         const token = await getAccessToken();
 
@@ -52,7 +52,7 @@ const apiService = {
         return new Promise((resolve, reject) => {
             fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
                 method: 'POST',
-                body: data,
+                body: JSON.stringify(data),
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
