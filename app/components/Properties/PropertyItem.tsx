@@ -1,14 +1,20 @@
 import Image from "next/image";
 import React from "react";
 import { PropertyType } from "./Properties";
+import { useRouter } from "next/navigation";
 
 interface PropertyProps {
   property: PropertyType;
 }
 
 const PropertyItem: React.FC<PropertyProps> = ({ property }) => {
+
+  const router = useRouter()
+
   return (
-    <div className="cursor-pointer">
+    <div
+    onClick={() => router.push(`/property/${property.id}`)} 
+    className="cursor-pointer">
       <div className="relative overflow-hidden aspect-square rounded-xl">
         <Image
           priority
