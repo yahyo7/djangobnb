@@ -4,6 +4,8 @@ import useLoginModal from "@/app/hooks/useLoginModal"
 import { use, useEffect, useState } from "react"
 import { start } from "repl"
 import DatePicker from "../forms/Calender"
+import apiService from "@/app/services/apiService"
+import { format } from "date-fns"
 
 const initialDateRange = {
     startDate: new Date(),
@@ -47,6 +49,27 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({property, userId
         })
     }
 
+    const performBooking = async() => {
+        if (userId) {
+            const formData = new FormData()
+            formData.append('check_in', format(dateRange.startDate, 'yyyy-MM-dd'))
+            formData.append('check_out', format(dateRange.endDate, 'yyyy-MM-dd'))
+            formData.append('guests', guests.toString())
+            formData.append('total_price', totalPrice.toString())
+            formData.append('number_of_nights', nights.toString())
+
+            const response = await apiService.post(`/api/properties/${property.id}/book/`, formData)
+            
+            if (response.success) {
+                console.log('Booking successful')
+            } else {
+                console.log('Booking failed')
+            }
+        } else {
+            loginModal.open()
+        }
+    }
+
 
     useEffect(() => {
         if (dateRange.endDate && dateRange.startDate) {
@@ -79,7 +102,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({property, userId
             </select>
         </div> 
 
-        <div className='w-full mb-6 py-6 text-center text-white bg-airbnb hover:bg-airbnb-dark rounded-xl' >Book</div>
+        <div onClick={performBooking} className='w-full mb-6 py-6 text-center text-white bg-airbnb hover:bg-airbnb-dark rounded-xl cursor-pointer' >Book</div>
 
         <div className='mb-4 flex justify-between align-middle' >
             <p>${property.price_per_night} per night</p>

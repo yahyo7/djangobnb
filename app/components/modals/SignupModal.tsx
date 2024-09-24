@@ -21,7 +21,6 @@ const SignupModal = (props: Props) => {
 
   const handleSignUp = async () => {
     const formData = { name, email, password1, password2 };
-    console.log(formData)
 
     const response = await apiService.postWithoutToken(
       "/api/auth/register/",
