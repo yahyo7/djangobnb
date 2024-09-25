@@ -5,7 +5,7 @@ import { use, useEffect, useState } from "react"
 import { start } from "repl"
 import DatePicker from "../forms/Calender"
 import apiService from "@/app/services/apiService"
-import { format } from "date-fns"
+import { eachDayOfInterval, format } from "date-fns"
 
 const initialDateRange = {
     startDate: new Date(),
@@ -31,9 +31,9 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({property, userId
     const [nights, setNights] = useState<number>(1)
     const [dateRange, setDateRange] = useState(initialDateRange)
     const [totalPrice, setTotalPrice] = useState<number>(0)
-    const [minDate, setMinDate] = useState(new Date())
     const [guests, setGuests] = useState<number>(1)
     const guestsRange = Array.from({length: property.guests}, (_, i) => i + 1)
+    const [bookedDates, setBookedDates] = useState<Date[]>([])
 
     const _setDateRange = (selection: any) => {
         const newStartDate = new Date(selection.startDate)
@@ -70,8 +70,23 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({property, userId
         }
     }
 
+    const getReservations = async () => {
+        const reservations = await apiService.get(`/api/properties/${property.id}/reservations/`)
+        let dates: Date[] = []
+
+        reservations.forEach((reservation: any) => {
+            const range = eachDayOfInterval({
+                start: new Date(reservation.check_in),
+                end: new Date(reservation.check_out)
+            })
+            dates = [...dates, ...range]
+        })
+        setBookedDates(dates)
+    }
+
 
     useEffect(() => {
+        getReservations()
         if (dateRange.endDate && dateRange.startDate) {
             const start = new Date(dateRange.startDate)
             const end = new Date(dateRange.endDate)
@@ -91,7 +106,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({property, userId
     <aside className='mt-6 p-6 rounded-xl border border-gray-300 shadow-xl'>
         <h2 className='mb-5 text-2xl' > {property.price_per_night}$ per night</h2>
 
-        <DatePicker value={dateRange} onChange={(value)=>_setDateRange(value.selection)} />
+        <DatePicker bookedDates={bookedDates} value={dateRange} onChange={(value)=>_setDateRange(value.selection)} />
 
         <div className='mb-6 p-3 border border-gray-400 rounded-xl' >
             <label className='mb-2 block font-bold text-xs'>Guests</label>
