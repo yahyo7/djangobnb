@@ -5,7 +5,7 @@ import PropertyItem from "./PropertyItem";
 import { useEffect, useState } from "react";
 import apiService from "@/app/services/apiService";
 
-type Props = { className?: string };
+type Props = { className?: string, landlord_id?: string | null };
 export type PropertyType = {
   id: string;
   title: string;
@@ -13,11 +13,15 @@ export type PropertyType = {
   image_url: string;
 }
 
-const Properties: React.FC<Props> = ({ className }) => {
+const Properties: React.FC<Props> = ({ className, landlord_id }) => {
   const [properties, setProperties] = useState<PropertyType[]>([]);
 
   const getProperties = async () => {
-    const tmpProperties = await apiService.get('/api/properties/')
+    let url = '/api/properties/'
+    if (landlord_id) {
+      url += `?landlord_id=${landlord_id}`
+    }
+    const tmpProperties = await apiService.get(url)
     setProperties(tmpProperties.data);
   };
 
